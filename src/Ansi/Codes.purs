@@ -1,13 +1,11 @@
-
+-- | This module defines a data type representing ANSI escape codes, as well as
+-- | functions for serialising them as Strings.
 module Ansi.Codes where 
 
-import Prelude hiding (Show)
-import Data.Set (Set())
-import Data.Set as Set
-import Data.List as List
+import Prelude
 import Data.String as String
 
--- | The prefix for all escape codes
+-- | The prefix for all escape codes.
 prefix :: String
 prefix = "\x1b["
 
@@ -15,8 +13,8 @@ prefix = "\x1b["
 colorSuffix :: String
 colorSuffix = "m"
 
--- | An ANSI escape sequence. Not all sequences are implemented. 
--- | See: https://en.wikipedia.org/wiki/ANSI_escape_code.
+-- | An ANSI escape code. Not all sequences are implemented. 
+-- | See: <https://en.wikipedia.org/wiki/ANSI_escape_code>.
 data EscapeCode
   = Up Int
   | Down Int
@@ -30,13 +28,14 @@ data EscapeCode
   | EraseLine EraseParam
   | ScrollUp Int
   | ScrollDown Int
-  | Graphics (Set GraphicsParam)
+  | Graphics (Array GraphicsParam)
   | SavePosition
   | RestorePosition
   | QueryPosition
-  | Hide
-  | Show
+  | HideCursor
+  | ShowCursor
 
+-- | Convert an escape code to the form recognised by terminals.
 escapeCodeToString :: EscapeCode -> String
 escapeCodeToString = (prefix <>) <<< go
   where
@@ -54,20 +53,22 @@ escapeCodeToString = (prefix <>) <<< go
       EraseLine p          -> ep p <> "K"
       ScrollUp n           -> show n <> "S"
       ScrollDown n         -> show n <> "T"
-      Graphics ps          -> String.joinWith ";" (map gp (toArray ps))
+      Graphics ps          -> String.joinWith ";" (map gp ps) <> colorSuffix
       SavePosition         -> "s"
       RestorePosition      -> "u"
       QueryPosition        -> "6n"
-      Hide                 -> "?25l"
-      Show                 -> "?25h"
+      HideCursor           -> "?25l"
+      ShowCursor           -> "?25h"
 
   ep = eraseParamToString
-
-  toArray :: forall a. Set a -> Array a
-  toArray = Set.toList >>> List.fromList
-
   gp = graphicsParamToString
 
+-- | Specifies how much text to erase.
+-- |
+-- | * ToEnd: erase from the cursor to the end of the line or screen.
+-- | * FromBeginning: erase to the cursor from the beginning of the line or
+-- |    screen.
+-- | * Entire: erase the entire line or screen.
 data EraseParam
   = ToEnd
   | FromBeginning
@@ -80,6 +81,8 @@ eraseParamToString ep =
     FromBeginning -> "1"
     Entire        -> "2"
 
+-- | A graphics parameter, controls how text appears; for example, bold,
+-- | underlined, foreground color, background color.
 data GraphicsParam
   = Reset
   | PMode RenderingMode
@@ -98,7 +101,6 @@ data RenderingMode
   = Bold
   | Italic
   | Underline
-  | Inverse
 
 codeForRenderingMode :: RenderingMode -> Int
 codeForRenderingMode m =
@@ -106,8 +108,8 @@ codeForRenderingMode m =
     Bold -> 1
     Italic -> 3
     Underline -> 4
-    Inverse -> 7
 
+-- | The standard set of 16 ANSI colors.
 data Color
   = White
   | Black
