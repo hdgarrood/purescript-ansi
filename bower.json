@@ -3,6 +3,7 @@
   "moduleType": [
     "node"
   ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/hdgarrood/purescript-ansi"
