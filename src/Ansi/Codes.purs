@@ -99,15 +99,21 @@ graphicsParamToString gp =
 
 data RenderingMode
   = Bold
+  | Dim
   | Italic
   | Underline
+  | Inverse
+  | Strikethrough
 
 codeForRenderingMode :: RenderingMode -> Int
 codeForRenderingMode m =
   case m of
     Bold -> 1
+    Dim -> 2
     Italic -> 3
     Underline -> 4
+    Inverse -> 7
+    Strikethrough -> 9
 
 -- | The standard set of 16 ANSI colors.
 data Color

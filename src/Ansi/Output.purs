@@ -33,11 +33,20 @@ withGraphics write params text = do
 bold :: Array GraphicsParam
 bold = [PMode Bold]
 
+dim :: Array GraphicsParam
+dim = [PMode Dim]
+
 italic :: Array GraphicsParam
 italic = [PMode Italic]
 
 underline :: Array GraphicsParam
 underline = [PMode Underline]
+
+inverse :: Array GraphicsParam
+inverse = [PMode Inverse]
+
+strikethrough :: Array GraphicsParam
+strikethrough = [PMode Strikethrough]
 
 foreground :: Color -> Array GraphicsParam
 foreground c = [PForeground c]
