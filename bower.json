@@ -15,9 +15,9 @@
     "output"
   ],
   "dependencies": {
-    "purescript-strings": "~0.7.1"
+    "purescript-strings": "^1.0.0"
   },
   "devDependencies": {
-    "purescript-console": "~0.1.1"
+    "purescript-console": "^1.0.0"
   }
 }

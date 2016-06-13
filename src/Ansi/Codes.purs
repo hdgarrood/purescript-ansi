@@ -37,7 +37,7 @@ data EscapeCode
 
 -- | Convert an escape code to the form recognised by terminals.
 escapeCodeToString :: EscapeCode -> String
-escapeCodeToString = (prefix <>) <<< go
+escapeCodeToString = (prefix <> _) <<< go
   where
   go c =
     case c of
