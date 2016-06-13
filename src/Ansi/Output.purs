@@ -4,7 +4,7 @@ module Ansi.Output where
 
 import Prelude
 
-import Ansi.Codes
+import Ansi.Codes (Color, EscapeCode(..), GraphicsParam(..), RenderingMode(..), escapeCodeToString)
 
 -- | Using the given output function, write the given text with the given set
 -- | of graphics parameters. For example:
