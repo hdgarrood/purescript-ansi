@@ -118,15 +118,14 @@ codeForRenderingMode m =
 
 -- | The standard set of 16 ANSI colors.
 data Color
-  = White
-  | Black
-  | Blue
-  | Cyan
-  | Green
-  | Magenta
+  = Black
   | Red
+  | Green
   | Yellow
-  | Grey
+  | Blue
+  | Magenta
+  | Cyan
+  | White
   | BrightBlack
   | BrightRed
   | BrightGreen
@@ -139,15 +138,14 @@ data Color
 colorCode :: Color -> Int
 colorCode c =
   case c of
-    White -> 37
     Black -> 30
-    Blue -> 34
-    Cyan -> 36
-    Green -> 32
-    Magenta -> 35
     Red -> 31
+    Green -> 32
     Yellow -> 33
-    Grey -> 90
+    Blue -> 34
+    Magenta -> 35
+    Cyan -> 36
+    White -> 37
     BrightBlack -> 90
     BrightRed -> 91
     BrightGreen -> 92
