@@ -15,10 +15,10 @@
     "output"
   ],
   "dependencies": {
-    "purescript-strings": "#compiler/0.12"
+    "purescript-strings": "^4.0.0"
   },
   "devDependencies": {
-    "purescript-console": "#compiler/0.12",
-    "purescript-psci-support": "#compiler/0.12"
+    "purescript-console": "^4.1.0",
+    "purescript-psci-support": "^4.0.0"
   }
 }
