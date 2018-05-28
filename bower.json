@@ -15,7 +15,9 @@
     "output"
   ],
   "dependencies": {
-    "purescript-strings": "^4.0.0"
+    "purescript-strings": "^4.0.0",
+    "purescript-lists": "^5.0.0",
+    "purescript-foldable-traversable": "^4.0.0"
   },
   "devDependencies": {
     "purescript-console": "^4.1.0",

@@ -4,6 +4,7 @@ module Ansi.Output where
 
 import Prelude
 
+import Data.List.NonEmpty (NonEmptyList)
 import Ansi.Codes (Color, EscapeCode(..), GraphicsParam(..), RenderingMode(..), escapeCodeToString)
 
 -- | Wrap the given text in escape codes corresponding to the given parameters.
@@ -20,32 +21,32 @@ import Ansi.Codes (Color, EscapeCode(..), GraphicsParam(..), RenderingMode(..), 
 -- | This function simply wraps the given text in an escape code and a reset
 -- | code, so that it is a little more comfortable to use than the functions
 -- | in `Ansi.Codes`.
-withGraphics :: Array GraphicsParam -> String -> String
+withGraphics :: NonEmptyList GraphicsParam -> String -> String
 withGraphics params text =
   escapeCodeToString (Graphics params) <>
   text <>
-  escapeCodeToString (Graphics [Reset])
+  escapeCodeToString (Graphics (pure Reset))
 
-bold :: Array GraphicsParam
-bold = [PMode Bold]
+bold :: NonEmptyList GraphicsParam
+bold = pure (PMode Bold)
 
-dim :: Array GraphicsParam
-dim = [PMode Dim]
+dim :: NonEmptyList GraphicsParam
+dim = pure (PMode Dim)
 
-italic :: Array GraphicsParam
-italic = [PMode Italic]
+italic :: NonEmptyList GraphicsParam
+italic = pure (PMode Italic)
 
-underline :: Array GraphicsParam
-underline = [PMode Underline]
+underline :: NonEmptyList GraphicsParam
+underline = pure (PMode Underline)
 
-inverse :: Array GraphicsParam
-inverse = [PMode Inverse]
+inverse :: NonEmptyList GraphicsParam
+inverse = pure (PMode Inverse)
 
-strikethrough :: Array GraphicsParam
-strikethrough = [PMode Strikethrough]
+strikethrough :: NonEmptyList GraphicsParam
+strikethrough = pure (PMode Strikethrough)
 
-foreground :: Color -> Array GraphicsParam
-foreground c = [PForeground c]
+foreground :: Color -> NonEmptyList GraphicsParam
+foreground c = pure (PForeground c)
 
-background :: Color -> Array GraphicsParam
-background c = [PBackground c]
+background :: Color -> NonEmptyList GraphicsParam
+background c = pure (PBackground c)

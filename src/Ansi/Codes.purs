@@ -1,9 +1,10 @@
 -- | This module defines a data type representing ANSI escape codes, as well as
 -- | functions for serialising them as Strings.
-module Ansi.Codes where 
+module Ansi.Codes where
 
 import Prelude
-import Data.String as String
+import Data.Foldable (intercalate)
+import Data.List.NonEmpty (NonEmptyList)
 
 -- | The prefix for all escape codes.
 prefix :: String
@@ -13,7 +14,7 @@ prefix = "\x1b["
 colorSuffix :: String
 colorSuffix = "m"
 
--- | An ANSI escape code. Not all sequences are implemented. 
+-- | An ANSI escape code. Not all sequences are implemented.
 -- | See: <https://en.wikipedia.org/wiki/ANSI_escape_code>.
 data EscapeCode
   = Up Int
@@ -28,7 +29,7 @@ data EscapeCode
   | EraseLine EraseParam
   | ScrollUp Int
   | ScrollDown Int
-  | Graphics (Array GraphicsParam)
+  | Graphics (NonEmptyList GraphicsParam)
   | SavePosition
   | RestorePosition
   | QueryPosition
@@ -53,7 +54,7 @@ escapeCodeToString = (prefix <> _) <<< go
       EraseLine p          -> ep p <> "K"
       ScrollUp n           -> show n <> "S"
       ScrollDown n         -> show n <> "T"
-      Graphics ps          -> String.joinWith ";" (map gp ps) <> colorSuffix
+      Graphics ps          -> intercalate ";" (map gp ps) <> colorSuffix
       SavePosition         -> "s"
       RestorePosition      -> "u"
       QueryPosition        -> "6n"
