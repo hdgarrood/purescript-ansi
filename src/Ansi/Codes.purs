@@ -36,6 +36,9 @@ data EscapeCode
   | HideCursor
   | ShowCursor
 
+derive instance eqEscapeCode :: Eq EscapeCode
+derive instance ordEscapeCode :: Ord EscapeCode
+
 -- | Convert an escape code to the form recognised by terminals.
 escapeCodeToString :: EscapeCode -> String
 escapeCodeToString = (prefix <> _) <<< go
@@ -75,6 +78,9 @@ data EraseParam
   | FromBeginning
   | Entire
 
+derive instance eqEraseParam :: Eq EraseParam
+derive instance ordEraseParam :: Ord EraseParam
+
 eraseParamToString :: EraseParam -> String
 eraseParamToString ep =
   case ep of
@@ -89,6 +95,9 @@ data GraphicsParam
   | PMode RenderingMode
   | PForeground Color
   | PBackground Color
+
+derive instance eqGraphicsParam :: Eq GraphicsParam
+derive instance ordGraphicsParam :: Ord GraphicsParam
 
 graphicsParamToString :: GraphicsParam -> String
 graphicsParamToString gp =
@@ -105,6 +114,9 @@ data RenderingMode
   | Underline
   | Inverse
   | Strikethrough
+
+derive instance eqRenderingMode :: Eq RenderingMode
+derive instance ordRenderingMode :: Ord RenderingMode
 
 codeForRenderingMode :: RenderingMode -> Int
 codeForRenderingMode m =
@@ -134,6 +146,9 @@ data Color
   | BrightMagenta
   | BrightCyan
   | BrightWhite
+
+derive instance eqColor :: Eq Color
+derive instance ordColor :: Ord Color
 
 colorCode :: Color -> Int
 colorCode c =
