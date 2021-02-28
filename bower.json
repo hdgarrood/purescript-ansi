@@ -15,12 +15,12 @@
     "output"
   ],
   "dependencies": {
-    "purescript-strings": "^4.0.0",
-    "purescript-lists": "^5.0.0",
-    "purescript-foldable-traversable": "^4.0.0"
+    "purescript-strings": "^5.0.0",
+    "purescript-lists": "^6.0.0",
+    "purescript-foldable-traversable": "^5.0.0"
   },
   "devDependencies": {
-    "purescript-console": "^4.1.0",
-    "purescript-psci-support": "^4.0.0"
+    "purescript-console": "^5.0.0",
+    "purescript-psci-support": "^5.0.0"
   }
 }
