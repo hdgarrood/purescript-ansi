@@ -3,8 +3,11 @@
 module Ansi.Codes where
 
 import Prelude
+
 import Data.Foldable (intercalate)
+import Data.Generic.Rep (class Generic)
 import Data.List.NonEmpty (NonEmptyList)
+import Data.Show.Generic (genericShow)
 
 -- | The prefix for all escape codes.
 prefix :: String
@@ -36,8 +39,11 @@ data EscapeCode
   | HideCursor
   | ShowCursor
 
+derive instance genericEscapeCode :: Generic EscapeCode _
 derive instance eqEscapeCode :: Eq EscapeCode
 derive instance ordEscapeCode :: Ord EscapeCode
+instance showEscapeCode :: Show EscapeCode where
+  show = genericShow
 
 -- | Convert an escape code to the form recognised by terminals.
 escapeCodeToString :: EscapeCode -> String
@@ -78,8 +84,11 @@ data EraseParam
   | FromBeginning
   | Entire
 
+derive instance genericEraseParam :: Generic EraseParam _
 derive instance eqEraseParam :: Eq EraseParam
 derive instance ordEraseParam :: Ord EraseParam
+instance showEraseParam :: Show EraseParam where
+  show = genericShow
 
 eraseParamToString :: EraseParam -> String
 eraseParamToString ep =
@@ -96,8 +105,11 @@ data GraphicsParam
   | PForeground Color
   | PBackground Color
 
+derive instance genericGraphicsParam :: Generic GraphicsParam _
 derive instance eqGraphicsParam :: Eq GraphicsParam
 derive instance ordGraphicsParam :: Ord GraphicsParam
+instance showGraphicsParam :: Show GraphicsParam where
+  show = genericShow
 
 graphicsParamToString :: GraphicsParam -> String
 graphicsParamToString gp =
@@ -115,8 +127,11 @@ data RenderingMode
   | Inverse
   | Strikethrough
 
+derive instance genericRenderingMode :: Generic RenderingMode _
 derive instance eqRenderingMode :: Eq RenderingMode
 derive instance ordRenderingMode :: Ord RenderingMode
+instance showRenderingMode :: Show RenderingMode where
+  show = genericShow
 
 codeForRenderingMode :: RenderingMode -> Int
 codeForRenderingMode m =
@@ -147,8 +162,11 @@ data Color
   | BrightCyan
   | BrightWhite
 
+derive instance genericColor :: Generic Color _
 derive instance eqColor :: Eq Color
 derive instance ordColor :: Ord Color
+instance showColor :: Show Color where
+  show = genericShow
 
 colorCode :: Color -> Int
 colorCode c =
