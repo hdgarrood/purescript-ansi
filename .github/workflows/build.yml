@@ -19,7 +19,9 @@ jobs:
           output
           node_modules
         key: build-atrifacts-v1-${{ hashFiles('package-lock.json', 'bower.json') }}
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14
     - run: npm i
     - run: npm run build
 
