@@ -1,0 +1,13 @@
+package:
+  name: ansi
+  publish:
+    version: 7.0.1
+    license: MIT
+    location:
+      githubOwner: hdgarrood
+      githubRepo: purescript-ansi
+  dependencies:
+    - foldable-traversable: ">=6.0.0 <7.0.0"
+    - lists: ">=7.0.0 <8.0.0"
+    - prelude: ">=6.0.0 <7.0.0"
+workspace: {}
